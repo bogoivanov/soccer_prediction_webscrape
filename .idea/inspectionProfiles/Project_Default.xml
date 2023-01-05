@@ -1,0 +1,39 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="3">
+            <item index="0" class="java.lang.String" itemvalue="action" />
+            <item index="1" class="java.lang.String" itemvalue="href" />
+            <item index="2" class="java.lang.String" itemvalue="u-logo-image" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N803" />
+          <option value="N802" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="int.__getitem__" />
+          <option value="list.revers" />
+          <option value="str.append" />
+          <option value="list.movies_owned" />
+          <option value="try_create.from_food" />
+          <option value="list.popleft" />
+          <option value="super.get_comtext_data" />
+          <option value="object.filter" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Predictions:
+{% for game in match_game_prediction %}
+    <h3>{{ game.time_added|date:"d M Y" }}|{{ game.time }}|{{ game.league }}|{{ game.match_game }} | <b>{{ game.general_prediction }}</b> |
+        {{ game.prediction_for_1 }}| {{ game.prediction_for_x }}|{{ game.prediction_for_2 }}|{{ game.odds_1 }}|{{ game.odds_X }}|{{ game.odds_2 }}{% if game.general_prediction_and_outcome %}WIN{% else %}LOOSE{% endif %}</h3>
+{% endfor %}
+</body>
+</html>
