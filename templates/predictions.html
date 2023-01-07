@@ -1,14 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-Predictions:
-{% for game in match_game_prediction %}
-    <h3>{{ game.time_added|date:"d M Y" }}|{{ game.time }}|{{ game.league }}|{{ game.match_game }} | <b>{{ game.general_prediction }}</b> |
-        {{ game.prediction_for_1 }}| {{ game.prediction_for_x }}|{{ game.prediction_for_2 }}|{{ game.odds_1 }}|{{ game.odds_X }}|{{ game.odds_2 }}{% if game.general_prediction_and_outcome %}WIN{% else %}LOOSE{% endif %}</h3>
-{% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block page_content %}
+    {% load tz %}
+
+    <body>
+    <table class="table table-dark table-striped-columns">
+        <tr>
+            <td><h3>Time added</h3></td>
+            <td><h3>Game time</h3></td>
+            <td><h3>League</h3></td>
+            <td><h3>Match game</h3></td>
+            <td><h3>Game Prediction</h3></td>
+            <td><h3>Perc 1</h3></td>
+            <td><h3>Perc X</h3></td>
+            <td><h3>Perc 2</h3></td>
+            <td><h3>Odds 1</h3></td>
+            <td><h3>Odds X</h3></td>
+            <td><h3>Odds 2</h3></td>
+            <td><h3>Win/Loos</h3></td>
+
+        </tr>
+        {% for game in match_game_prediction %}
+            <tr>
+            {{ now }}
+            <td>{{ game.time_added|date:"d M Y" }}dddd{% now "d M Y" %}</td>
+            <td>{{ game.time }}</td>
+            <td>{{ game.league }}</td>
+            <td>{{ game.match_game }}</td>
+            <td><b>{{ game.general_prediction }}</b></td>
+            <td>{{ game.prediction_for_1 }}</td>
+            <td>{{ game.prediction_for_x }}</td>
+            <td>{{ game.prediction_for_2 }}</td>
+            <td>{{ game.odds_1|floatformat:2 }}</td>
+            <td>{{ game.odds_X|floatformat:2 }}</td>
+            <td>{{ game.odds_2|floatformat:2 }}</td>
+            <td>
+
+                {% if game.general_prediction_and_outcome == "WIN" %}
+                    <p style="color:#28B463">WIN</p>
+                {% elif game.general_prediction_and_outcome == "LOOSE" %}
+                    <p style="color:#FF0000">LOOSE</p>
+                {% elif game.general_prediction_and_outcome == "UNKNOWN" %}
+                    <p style="color:#CCD1D1">UNKNOWN</p>
+                {% endif %}
+            </td>
+        {% endfor %}
+        </tr>
+    </table>
+
+    {#    <nav aria-label="Page navigation example">#}
+    {#  <ul class="pagination justify-content-center">#}
+    {#    <li class="page-item disabled">#}
+    {#      <a class="page-link" href="#" tabindex="-1">Previous</a>#}
+    {#    </li>#}
+    {#    <li class="page-item"><a class="page-link" href="#">1</a></li>#}
+    {#    <li class="page-item"><a class="page-link" href="#">2</a></li>#}
+    {#    <li class="page-item"><a class="page-link" href="#">3</a></li>#}
+    {#    <li class="page-item">#}
+    {#      <a class="page-link" href="#">Next</a>#}
+    {#    </li>#}
+    {#  </ul>#}
+    {#</nav>#}
+    <nav aria-label="Page navigation example">
+        <div class="pagination justify-content-center">
+    <span>
+
+        {% if match_game_prediction.has_previous %}
+            <a class="page-link" href="?page=1">&laquo; first</a>
+            <a class="page-link" href="?page={{ match_game_prediction.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="page-item">
+            Page {{ match_game_prediction.number }} of {{ match_game_prediction.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a class="page-link" href="?page={{ match_game_prediction.next_page_number }}">next</a>
+            <a class="page-link" href="?page={{ match_game_prediction.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+        </div>
+    </nav>
+    </body>
+{% endblock %}

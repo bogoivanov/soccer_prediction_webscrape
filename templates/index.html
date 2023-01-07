@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-index
-</body>
-</html>
+{% extends 'base.html' %}
+{% block page_content %}
+
+    <main class="px-3">
+        <h1>Welcome to our website for Soccer Predictions! {{ matches_count }} predictions for you!</h1>
+        <p class="lead">
+            We are a team of soccer enthusiasts who are dedicated to providing the most accurate and reliable predictions<br>
+            for various soccer leagues around the world. Our team of experts spends countless hours analyzing data and statistics<br>
+            to come up with the best possible predictions for each match. We take into account a wide range of factors, including<br>
+            team form, player performances, and head-to-head records, to provide the most accurate and informed predictions possible.<br>
+            In addition to our expert predictions, we also offer a range of useful resources for soccer fans, including live scores, <br>
+            fixtures, and results for various leagues. Whether you are a seasoned soccer bettor or just a casual fan looking for<br>
+            some insights, our website is the perfect place for you. We are confident that our predictions will help you make informed<br>
+            betting decisions and enhance your enjoyment of the beautiful game.</p>
+        <p class="lead">
+            <a href="{% url 'scrape' %}" class="btn btn-lg btn-light fw-bold border-white bg-white">SCRAPE PREDICTIONS</a>
+        </p>
+    </main>
+
+{% endblock %}
