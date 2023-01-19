@@ -9,8 +9,9 @@ import bs4
 import requests
 from datetime import timedelta
 from django.utils import timezone
+from django.core.files import File
 
-from soccer_prediction.predictions.models import MatchGamePrediction
+from soccer_prediction.predictions.models import MatchGamePrediction, CountryFlags
 
 
 def add_two_hours_to_time(time):
@@ -52,8 +53,7 @@ def scrape_data(request):
             odds_1 = float(cols[7].text)
             odds_X = float(cols[8].text)
             odds_2 = float(cols[9].text)
-            if (odds_1 >= 1.5 and odds_X >= 1.5 and odds_2 >= 1.5) and (
-                    prediction_for_1 >= 70 or prediction_for_x >= 70 or prediction_for_2 >= 70):
+            if odds_1 >= 1.5 and prediction_for_1 >= 70:
                 prediction = {
                     "league": league,
                     "time": time,
@@ -66,7 +66,20 @@ def scrape_data(request):
                     "odds_X": odds_X,
                     "odds_2": odds_2,
                 }
-
+                top_predictions.append(prediction)
+            elif odds_2 >= 1.5 and prediction_for_2 >= 60:
+                prediction = {
+                    "league": league,
+                    "time": time,
+                    "match_game": match_game,
+                    "prediction_for_1": prediction_for_1,
+                    "prediction_for_x": prediction_for_x,
+                    "prediction_for_2": prediction_for_2,
+                    "general_prediction": general_prediction,
+                    "odds_1": odds_1,
+                    "odds_X": odds_X,
+                    "odds_2": odds_2,
+                }
                 top_predictions.append(prediction)
                 # print(
                 #     f'{league} | {time} | {match_game}: {prediction_for_1}|{prediction_for_x}|{prediction_for_2} || {general_prediction} || {odds_1} | {odds_X} | {odds_2}'
@@ -127,6 +140,7 @@ def check_data(request):
 class IndexView(ListView):
     model = MatchGamePrediction
     template_name = 'index.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['matches_count'] = self.object_list.all().count()
@@ -134,7 +148,7 @@ class IndexView(ListView):
 
 
 class PredictionsListView(ListView):
-    paginate_by = 15
+    paginate_by = 10
     model = MatchGamePrediction
     template_name = 'predictions.html'
 
@@ -153,3 +167,104 @@ class PredictionsListView(ListView):
         context['match_game_prediction'] = self.get_paginated_matches()
         return context
 
+
+def scrape_flags(request):
+    # url = 'https://www.prosoccer.gr/en/football/predictions/yesterday.html'
+    url = 'https://www.iconfinder.com/iconsets/world-flags-1'
+    # url = 'https://www.prosoccer.gr/en/football/predictions/tomorrow.html'
+    # url = 'https://www.prosoccer.gr/en/football/predictions/Friday.html'
+    # url = 'https://www.prosoccer.gr/en/football/predictions/Saturday.html'
+    # url = 'https://www.prosoccer.gr/en/football/predictions/Sunday.html'
+    # url = 'https://www.prosoccer.gr/en/football/predictions/Monday.html'
+    req = requests.get(url)
+
+    soup = bs4.BeautifulSoup(req.content, 'html.parser')
+    flag_conteiners = soup.find_all('div', class_='icon-preview-img d-flex align-items-center justify-content-center')
+    images = []
+    for i, flag_conteiner in enumerate(flag_conteiners):
+        try:
+            images.append(flag_conteiner.img)
+        except:
+            print('error')
+    for image in images:
+        # Open a file object using the image data
+
+        image_name = image['alt'].replace(",", "")
+        image_name = image_name.split()
+        image_name = "_".join(image_name)
+        image_data = requests.get(image['src']).content
+        # new_country_model = CountryFlags.objects.create(
+        #     country_name=image_name,
+        # )
+        with open('soccer_prediction/mediafiles/flags/flags_scrape/{}.png'.format(image_name), 'wb') as f:
+            f.write(image_data)
+            # new_country_model.save()
+            # CountryFlags.objects.create(
+            #     country_name=image_name,
+            #     country_image=f.write(image_data)
+            # )
+        #     f.write(image_data)
+        # last_country_flag = CountryFlags.objects.create(
+        #     country_name=image_name,
+        #     country_image=image_file
+        # )
+
+        # with open('soccer_prediction/mediafiles/flags/{}.png'.format(image_name), 'wb') as f:
+        #     f.write(image_data)
+    return redirect('index')
+    # with open('image_{}.png'.format(i), 'wb') as f:
+    #     f.write(image_data)
+    # image_data = requests.get(flag['src']).content
+    # with open('flag_{}.png'.format(i), 'wb') as f:
+    #     f.write(image_data)
+
+    # table = soup.find(id='tblPredictions')
+    # rows = table.find_all('tr')[1:]
+    # top_predictions = []
+    # for row in rows:
+    #     cols = row.find_all('td')
+    #     league = cols[0].text
+    #     # time = cols[1].text
+    #     time = add_two_hours_to_time(cols[1].text.split(":"))
+    #     match_game = cols[2].text
+    #     prediction_for_1 = int(cols[3].text)
+    #     prediction_for_x = int(cols[4].text)
+    #     prediction_for_2 = int(cols[5].text)
+    #     general_prediction = cols[6].text.strip('a')
+    #     if cols[7].text and cols[8].text and cols[9].text:
+    #         odds_1 = float(cols[7].text)
+    #         odds_X = float(cols[8].text)
+    #         odds_2 = float(cols[9].text)
+    #         if odds_1 >= 1.5 and prediction_for_1 >= 70:
+    #             prediction = {
+    #                 "league": league,
+    #                 "time": time,
+    #                 "match_game": match_game,
+    #                 "prediction_for_1": prediction_for_1,
+    #                 "prediction_for_x": prediction_for_x,
+    #                 "prediction_for_2": prediction_for_2,
+    #                 "general_prediction": general_prediction,
+    #                 "odds_1": odds_1,
+    #                 "odds_X": odds_X,
+    #                 "odds_2": odds_2,
+    #             }
+    #             top_predictions.append(prediction)
+    #         elif odds_2 >= 1.5 and prediction_for_2 >= 60:
+    #             prediction = {
+    #                 "league": league,
+    #                 "time": time,
+    #                 "match_game": match_game,
+    #                 "prediction_for_1": prediction_for_1,
+    #                 "prediction_for_x": prediction_for_x,
+    #                 "prediction_for_2": prediction_for_2,
+    #                 "general_prediction": general_prediction,
+    #                 "odds_1": odds_1,
+    #                 "odds_X": odds_X,
+    #                 "odds_2": odds_2,
+    #             }
+    #             top_predictions.append(prediction)
+    #             # print(
+    #             #     f'{league} | {time} | {match_game}: {prediction_for_1}|{prediction_for_x}|{prediction_for_2} || {general_prediction} || {odds_1} | {odds_X} | {odds_2}'
+    #             # )
+    # add_data_to_database(top_predictions)
+    # check_data(request)

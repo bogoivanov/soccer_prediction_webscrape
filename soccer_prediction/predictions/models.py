@@ -17,7 +17,15 @@ class MatchGamePrediction(models.Model):
     time_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-time_added", "match_game", ]
+        ordering = ["-time_added", "time", ]
 
 
 
+class CountryFlags(models.Model):
+    country_name = models.CharField(max_length=300, unique=True)
+    country_image = models.ImageField(upload_to='mediafiles/flags/')
+
+    # country_image = CloudinaryField(
+    #     null=False,
+    #     blank=True,
+    # )

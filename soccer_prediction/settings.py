@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
 from pathlib import Path
+
+import cloudinary as cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -122,7 +123,16 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = (
     BASE_DIR / 'staticfiles',
 )
+MEDIA_URL = '/media/'
 
+MEDIA_ROOT = BASE_DIR / 'mediafiles'
+
+cloudinary.config(
+    cloud_name="ddxz8dlr2",
+    api_key="759557234311235",
+    api_secret="OGccqGcL4TnfqVtI43XnMyG3_K0",
+    secure=True,
+)
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

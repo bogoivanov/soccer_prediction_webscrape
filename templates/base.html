@@ -7,9 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.108.0">
-    <title>Cover Template · Bootstrap v5.3</title>
-
-
+    <title>Soccer Predictions</title>
+    <link rel="icon" href="{% static "img/football_flag.png" %}">
+    <link href="{% static cover.css %}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
@@ -70,7 +70,7 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="{% static cover.css %}" rel="stylesheet">
+
 </head>
 <body class="d-flex h-100 text-center text-bg-dark">
 
@@ -82,6 +82,7 @@
                 <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="{% url 'index' %}">Home</a>
                 <a class="nav-link fw-bold py-1 px-0" href="{% url 'predictions' %}">Predictions</a>
                 <a class="nav-link fw-bold py-1 px-0" href="#">Contact</a>
+                <img class="flags" src="{% static 'img/argentina_flag.png' %}" alt="f">
             </nav>
         </div>
     </header>

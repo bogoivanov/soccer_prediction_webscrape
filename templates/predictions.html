@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block page_content %}
     {% load tz %}
 
@@ -22,9 +23,40 @@
         {% for game in match_game_prediction %}
             <tr>
             {{ now }}
-            <td>{{ game.time_added|date:"d M Y" }}dddd{% now "d M Y" %}</td>
+            <td>{{ game.time_added|date:"d M Y" }}</td>
             <td>{{ game.time }}</td>
-            <td>{{ game.league }}</td>
+            <td>{{ game.league }}<br>
+                {% if game.league == "ENP" or game.league == "ENF" or game.league == "ENB" or game.league == "ENC" or game.league == "EN1" or game.league == "EN2" %}
+                    <img src={% static 'img/eng_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "ES1" or game.league == "ES2" or game.league == "ESC" or game.league == "ESS" %}
+                    <img src={% static 'img/spain_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "PT1" or game.league == "PT2" or game.league == "PTC" %}
+                    <img src={% static 'img/portugal_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "IT1" or game.league == "IT2" or game.league == "ITC" %}
+                    <img src={% static 'img/italy_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "NL1" or game.league == "NL2" or game.league == "NLC" %}
+                    <img src={% static 'img/netherland_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "BE1" or game.league == "BE2" or game.league == "BEC" %}
+                    <img src={% static 'img/belgium_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "FR1" or game.league == "FR2" or game.league == "FRC" %}
+                    <img src={% static 'img/france_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "IL1" or game.league == "IL2" or game.league == "ILC" %}
+                    <img src={% static 'img/israel_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "GR1" or game.league == "GR2" or game.league == "GRC" %}
+                    <img src={% static 'img/greece_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "MX1" or game.league == "MX2" or game.league == "MXC" %}
+                    <img src={% static 'img/mexico_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "TR1" or game.league == "TR2" or game.league == "TRC" %}
+                    <img src={% static 'img/turkey_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "SCL" or game.league == "SCP" or game.league == "SCF" or game.league == "SCB" or game.league == "SCC" or game.league == "SC1" or game.league == "SC2" %}
+                    <img src={% static 'img/scotland_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "CYC" or game.league == "CY1" or game.league == "CY2" %}
+                    <img src={% static 'img/scotland_flag.png' %} width="20" height="20" alt="flag">
+                {% else %}
+                    <img src={% static 'img/football_flag.png' %} width="20" height="20" alt="flag">
+                {% endif %}
+
+            </td>
             <td>{{ game.match_game }}</td>
             <td><b>{{ game.general_prediction }}</b></td>
             <td>{{ game.prediction_for_1 }}</td>
@@ -69,14 +101,15 @@
             <a class="page-link" href="?page={{ match_game_prediction.previous_page_number }}">previous</a>
         {% endif %}
 
-        <span class="page-item">
-            Page {{ match_game_prediction.number }} of {{ match_game_prediction.paginator.num_pages }}.
-        </span>
+
 
         {% if page_obj.has_next %}
             <a class="page-link" href="?page={{ match_game_prediction.next_page_number }}">next</a>
             <a class="page-link" href="?page={{ match_game_prediction.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
+        <span class="page-item">
+            Page {{ match_game_prediction.number }} of {{ match_game_prediction.paginator.num_pages }}.
+        </span>
     </span>
         </div>
     </nav>
