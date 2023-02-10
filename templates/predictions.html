@@ -26,8 +26,8 @@
             <td>{{ game.time_added|date:"d M Y" }}</td>
             <td>{{ game.time }}</td>
             <td>{{ game.league }}<br>
-                {% if game.league == "ENP" or game.league == "ENF" or game.league == "ENB" or game.league == "ENC" or game.league == "EN1" or game.league == "EN2" %}
-                    <img src={% static 'img/eng_flag.png' %} width="20" height="20" alt="flag">
+                {% if game.league == "ENL" or game.league == "ENP" or game.league == "ENF" or game.league == "ENB" or game.league == "ENC" or game.league == "EN1" or game.league == "EN2" %}
+                    <img class="flag" src={% static 'img/eng_flag.png' %} style="width: 20px" alt="flag">
                 {% elif game.league == "ES1" or game.league == "ES2" or game.league == "ESC" or game.league == "ESS" %}
                     <img src={% static 'img/spain_flag.png' %} width="20" height="20" alt="flag">
                 {% elif game.league == "PT1" or game.league == "PT2" or game.league == "PTC" %}
@@ -51,7 +51,42 @@
                 {% elif game.league == "SCL" or game.league == "SCP" or game.league == "SCF" or game.league == "SCB" or game.league == "SCC" or game.league == "SC1" or game.league == "SC2" %}
                     <img src={% static 'img/scotland_flag.png' %} width="20" height="20" alt="flag">
                 {% elif game.league == "CYC" or game.league == "CY1" or game.league == "CY2" %}
-                    <img src={% static 'img/scotland_flag.png' %} width="20" height="20" alt="flag">
+                    <img src={% static 'img/cyprus_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "ZAC" or game.league == "ZA1" or game.league == "ZA2" %}
+                    <img src={% static 'img/rsa_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "CHC" or game.league == "CH1" or game.league == "CH2" %}
+                    <img src={% static 'img/switzerland_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "DEC" or game.league == "DE1" or game.league == "DE2" %}
+                    <img src={% static 'img/germany_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "ROC" or game.league == "RO1" or game.league == "RO2" %}
+                    <img src={% static 'img/romania_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "CLC" or game.league == "CL1" or game.league == "CL2" %}
+                    <img src={% static 'img/chili_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "THC" or game.league == "TH1" or game.league == "TH2" %}
+                    <img src={% static 'img/thailand_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "HUC" or game.league == "HU1" or game.league == "HU2" %}
+                    <img src={% static 'img/hungary_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "ARC" or game.league == "AR1" or game.league == "AR2" %}
+                    <img src={% static 'img/argentina_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "COC" or game.league == "CO1" or game.league == "CO2" %}
+                    <img src={% static 'img/columbia_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "HRC" or game.league == "HR1" or game.league == "HR2" %}
+                    <img src={% static 'img/croatia2_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "PLC" or game.league == "PL1" or game.league == "PL2" %}
+                    <img src={% static 'img/poland_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "CZC" or game.league == "CZ1" or game.league == "CZ2" %}
+                    <img src={% static 'img/czech_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "ATC" or game.league == "АТ1" or game.league == "АТ2" %}
+                    <img src={% static 'img/austria_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "UYC" or game.league == "UY1" or game.league == "UY2" %}
+                    <img src={% static 'img/uruguay_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "RSC" or game.league == "RS1" or game.league == "RS2" %}
+                    <img src={% static 'img/serbia_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "BGC" or game.league == "BG1" or game.league == "BG2" %}
+                    <img src={% static 'img/bulgaria_flag.png' %} width="20" height="20" alt="flag">
+                    <img src={% static 'img/serbia_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "SWC" or game.league == "SW1" or game.league == "SW2" %}
+                    <img src={% static 'img/sweden_flag.png' %} width="20" height="20" alt="flag">
                 {% else %}
                     <img src={% static 'img/football_flag.png' %} width="20" height="20" alt="flag">
                 {% endif %}
