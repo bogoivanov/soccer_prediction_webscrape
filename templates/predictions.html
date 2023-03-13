@@ -110,6 +110,12 @@
                     <img src={% static 'img/ireland_flag.png' %} width="20" height="20" alt="flag">
                 {% elif game.league == "JPC" or game.league == "JP1" or game.league == "JP2" %}
                     <img src={% static 'img/japan_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "BAC" or game.league == "BA1" or game.league == "BA2" %}
+                    <img src={% static 'img/bosnia_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "KZC" or game.league == "KZ1" or game.league == "KZ2" %}
+                    <img src={% static 'img/kazahstan_flag.png' %} width="20" height="20" alt="flag">
+                {% elif game.league == "AZC" or game.league == "AZ1" or game.league == "AZ2" %}
+                    <img src={% static 'img/azerbaijan_flag.png' %} width="20" height="20" alt="flag">
                 {% else %}
                     <img src={% static 'img/football_flag.png' %} width="20" height="20" alt="flag">
                 {% endif %}
